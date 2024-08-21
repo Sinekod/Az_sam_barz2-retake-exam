@@ -25,4 +25,22 @@ jobs:
       run: npm run test:unit
     - name: Display username 
       run: echo 'Az_sam_barz2'
+      
+  run_ui_tests:
+    needs:  build-and-unit-test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Use Node.js 20
+      uses: actions/setup-node@v4
+    - name: Intsal dependencies
+      run: npm install
+    - name: Install playwright browser
+      run: npx playwright install
+    - name: Start the application
+      run: npm run start &
+    - name: Execute the ui tests
+      run: npm run test:ui
 
